@@ -9,8 +9,8 @@ library(quanteda.dictionaries)
 library(ggplot2)
 
 #paths to folders with CSV files extracted using the Reddit API
-posts_path <- "/Users/masha/Desktop/reddit/posts"
-comms_path <- "/Users/masha/Desktop/reddit/comments"
+posts_path <- "/.../Desktop/reddit/posts"
+comms_path <- "/.../Desktop/reddit/comments"
 
 #get the paths to all files in the folders
 p_files <- list.files(posts_path, all.files = TRUE, 
@@ -54,10 +54,10 @@ for (i in 1:length(c_files)){
 }
 
 #store as CSV
-write.csv(p_init, "/Users/masha/Desktop/reddit/p_init.csv", row.names=FALSE)
+write.csv(p_init, "/.../Desktop/reddit/p_init.csv", row.names=FALSE)
 
 #read the file
-p_init <- read_csv("/Users/masha/Desktop/reddit/p_init.csv")
+p_init <- read_csv("/.../Desktop/reddit/p_init.csv")
 
 #get the names of subreddits on the dataset
 subs <- unique(p_init$subreddit)
@@ -128,10 +128,10 @@ summary$n_tags_adj <- summary$n_tags_adj/summary$n_documents
 summary$n_emojis_adj <- summary$n_emojis_adj/summary$n_documents
 
 #store as CSV
-write.csv(df, "/Users/masha/Desktop/reddit/summary.csv", row.names=FALSE)
+write.csv(df, "/.../Desktop/reddit/summary.csv", row.names=FALSE)
 
 #get the previously saved summary file
-summary <- read_csv("/Users/masha/Desktop/reddit/summary.csv",
+summary <- read_csv("/.../Desktop/reddit/summary.csv",
                     show_col_types = FALSE)
 
 #let's work with the sentiment of the content
@@ -179,12 +179,12 @@ sentiment[,2:ncol(sentiment)] <- sentiment[,2:ncol(sentiment)]/sentiment[,ncol(s
 sentiment[,2:ncol(sentiment)] <- round(sentiment[,2:ncol(sentiment)], 2)
 
 #save the tables
-write.csv(summary, "/Users/masha/Desktop/reddit/summary.csv", row.names=FALSE)
-write.csv(sentiment, "/Users/masha/Desktop/reddit/sentiment.csv", row.names=FALSE)
+write.csv(summary, "/.../Desktop/reddit/summary.csv", row.names=FALSE)
+write.csv(sentiment, "/.../Desktop/reddit/sentiment.csv", row.names=FALSE)
 
 #obtain the correlation matrix for sentiment and save it
 write.csv(round(cor(sentiment[,2:(ncol(sentiment)-1)]), 2),
-          "/Users/masha/Desktop/reddit/corr_sentiment.csv", 
+          "/.../Desktop/reddit/corr_sentiment.csv", 
           row.names=TRUE)
 
 #round the numbers up to 2 decimals
@@ -192,11 +192,11 @@ summary <- summary %>% mutate_if(is.numeric, ~round(., 2))
 sentiment <- sentiment %>% mutate_if(is.numeric, ~round(., 2))
 
 #save
-write.csv(summary, "/Users/masha/Desktop/reddit/summary.csv", row.names=FALSE)
-write.csv(sentiment, "/Users/masha/Desktop/reddit/sentiment.csv", row.names=FALSE)
+write.csv(summary, "/.../Desktop/reddit/summary.csv", row.names=FALSE)
+write.csv(sentiment, "/.../Desktop/reddit/sentiment.csv", row.names=FALSE)
 
 #open the "neutral" subreddit and ad it to our dataset
-neutral_sub <- read.csv("/Users/masha/Desktop/reddit/answers.csv")
+neutral_sub <- read.csv("/.../Desktop/reddit/answers.csv")
 neutral_sub <- neutral_sub %>% drop_na()
 
 #add the number of rows equal to the size of our initial dataset, to create
@@ -219,10 +219,10 @@ ggplot(neutral_sub, aes(x = sentiment)) +
 p_init <- rbind(p_init, askreddit)
 
 #save
-write.csv(p_init, "/Users/masha/Desktop/reddit/p_init.csv", row.names=FALSE)
+write.csv(p_init, "/.../Desktop/reddit/p_init.csv", row.names=FALSE)
 
 #read the file
-p_init <- read.csv("/Users/masha/Desktop/reddit/p_init.csv")
+p_init <- read.csv("/.../Desktop/reddit/p_init.csv")
 
 corpus_reddit <- corpus(p_init, text_field = "body")
 
@@ -392,14 +392,14 @@ p_init$auth_lib[p_init$subreddit == "askreddit"] <- 0
 p_init$auth_lib[p_init$subreddit == "askreddit"] <- 0
 
 #save
-write.csv(p_init, "/Users/masha/Desktop/reddit/p_init_wordscores.csv", row.names=FALSE)
-write.csv(p_init_grouped, "/Users/masha/Desktop/reddit/p_init_grouped.csv", row.names=FALSE)
+write.csv(p_init, "/.../Desktop/reddit/p_init_wordscores.csv", row.names=FALSE)
+write.csv(p_init_grouped, "/.../Desktop/reddit/p_init_grouped.csv", row.names=FALSE)
 
 #delete the [removed] observations from the dataset
 p_init <- p_init[p_init$body != "[removed]",]
-write.csv(p_init, "/Users/masha/Desktop/reddit/p_init_non_removed.csv")
+write.csv(p_init, "/.../Desktop/reddit/p_init_non_removed.csv")
 
-p_init <- read.csv("/Users/masha/Desktop/reddit/p_init_non_removed.csv")
+p_init <- read.csv("/.../Desktop/reddit/p_init_non_removed.csv")
 
 #create a balanced version of our dataset to reduce the imbalances classes issue
 
@@ -453,4 +453,4 @@ rdfm <- reddit_dfm %>%
 rdfm <- rdfm[,2:ncol(rdfm)]
 
 #save as CSV
-write.csv(rdfm, "/Users/masha/Desktop/reddit/reduced_dfm_tfidf.csv")
+write.csv(rdfm, "/.../Desktop/reddit/reduced_dfm_tfidf.csv")
